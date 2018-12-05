@@ -15,18 +15,8 @@ class User_sessions_model extends \Model {
 		$this->rs['uid'] = NULL;
 		$this->rs['remote_ssh'] = '';
 
-		// Schema version, increment when creating a db migration
-		$this->schema_version = 0;
-
-		// Add indexes
-		$this->idx[] = array('event');
-		$this->idx[] = array('time');
-		$this->idx[] = array('user');
-		$this->idx[] = array('uid');
-		$this->idx[] = array('remote_ssh');
-
-		// Create table if it does not exist
-		//$this->create_table();
+		// Add local config
+		configAppendFile(__DIR__ . '/config.php');
 
 		$this->serial_number = $serial;
 	}
