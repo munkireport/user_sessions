@@ -3,21 +3,22 @@
 use CFPropertyList\CFPropertyList;
 
 class User_sessions_model extends \Model {
+	function __construct($serial='')
+	{
+		parent::__construct('id', 'user_sessions'); //primary key, tablename
+		$this->rs['id'] = '';
+		$this->rs['serial_number'] = $serial;
+		$this->rs['event'] = '';
+		$this->rs['time'] = 0;
+		$this->rs['user'] = '';
+		$this->rs['uid'] = NULL;
+		$this->rs['remote_ssh'] = '';
 
-    function __construct($serial='')
-    {
-        parent::__construct('id', 'user_sessions'); //primary key, tablename
-        $this->rs['id'] = '';
-        $this->rs['serial_number'] = $serial;
-        $this->rs['event'] = '';
-        $this->rs['time'] = 0;
-        $this->rs['user'] = '';
-        $this->rs['uid'] = NULL;
-        $this->rs['remote_ssh'] = '';
-        
+		// Add local config
+		configAppendFile(__DIR__ . '/config.php');
 
-        $this->serial_number = $serial;
-    }
+		$this->serial_number = $serial;
+	}
 
 	// ------------------------------------------------------------------------
 
