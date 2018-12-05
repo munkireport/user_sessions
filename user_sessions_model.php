@@ -12,7 +12,9 @@ class User_sessions_model extends \Model {
         $this->rs['event'] = '';
         $this->rs['time'] = 0;
         $this->rs['user'] = '';
+        $this->rs['uid'] = NULL;
         $this->rs['remote_ssh'] = '';
+        
 
         $this->serial_number = $serial;
     }
@@ -25,6 +27,7 @@ class User_sessions_model extends \Model {
 	 * @param string data
 	 * @author tuxudo
 	 **/
+
     function process($plist)
     {
         if ( ! $plist) {
@@ -35,7 +38,7 @@ class User_sessions_model extends \Model {
         if (!conf('user_sessions_keep_historical')) {
             $this->deleteWhere('serial_number=?', $this->serial_number);
         }
-        
+
         $parser = new CFPropertyList();
         $parser->parse($plist, CFPropertyList::FORMAT_XML);
         $myList = $parser->toArray();
@@ -44,9 +47,10 @@ class User_sessions_model extends \Model {
             'event' => '',
             'time' => 0,
             'user' => '',
+            'uid' => NULL,
             'remote_ssh' => ''
         );
-
+        
         foreach (array_reverse($myList) as $event) {
 
             if (array_key_exists('user', $event)) {
@@ -56,7 +60,7 @@ class User_sessions_model extends \Model {
                     continue;
                 }
             }
-
+  
             if (!conf('user_sessions_save_remote_ssh') && array_key_exists('remote_ssh', $event)) {
             // Check if remote_ssh key exists and skip if set to not save
                 continue;
@@ -81,13 +85,18 @@ class User_sessions_model extends \Model {
             // Check if event is shutdown and skip if set to not save
                 continue;
             }
-            
+
             foreach ($typeList as $key => $value) {
 
                 $this->rs[$key] = $value;
 
                 if(array_key_exists($key, $event)) {
-                    $this->rs[$key] = $event[$key];
+                    // Check if uid is '' if it is, set the value to NULL
+                    if ($key == "uid" && $event[$key] == '') {
+                        $this->rs[$key] = NULL;
+                    } else {
+                        $this->rs[$key] = $event[$key];
+                    }
                 }
             }
 
