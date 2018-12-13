@@ -11,11 +11,11 @@ return [
 	| user_sessions_keep_historical key to false. 
 	|
 	*/
-	$conf['user_sessions_save_remote_ssh'] = TRUE,
-	$conf['user_sessions_save_login'] = TRUE,
-	$conf['user_sessions_save_logout'] = TRUE,
-	$conf['user_sessions_save_reboot'] = TRUE,
-	$conf['user_sessions_save_shutdown'] = TRUE,
-	$conf['user_sessions_keep_historical'] = TRUE,
-	$conf['user_sessions_unique_users_only'] = FALSE,
+	'user_sessions_save_remote_ssh' => env('USER_SESSIONS_SAVE_REMOTE_SSH', true),
+	'user_sessions_save_login' => env('USER_SESSIONS_SAVE_LOGIN', true),
+	'user_sessions_save_logout' => env('USER_SESSIONS_SAVE_LOGOUT', true),
+	'user_sessions_save_reboot' => env('USER_SESSIONS_SAVE_REBOOT', true),
+	'user_sessions_save_shutdown' => env('USER_SESSIONS_SAVE_SHUTDOWN', true),
+	'user_sessions_keep_historical' => env('USER_SESSIONS_KEEP_HISTORICAL', true),
+	'user_sessions_unique_users_only' => env('USER_SESSIONS_UNIQUE_USERS_ONLY', false),
 ];
