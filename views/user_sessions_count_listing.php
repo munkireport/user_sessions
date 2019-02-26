@@ -20,12 +20,12 @@ advanced listings only.
 		    <thead>
 		      <tr>
 		      	<th data-i18n="listing.computername" data-colname='machine.computer_name'></th>
-		      	<th data-i18n="serial" data-colname='reportdata.serial_number'></th>
-		      	<th data-i18n="user_sessions.reboots" data-colname='user_sessions.reboot'></th>
-		      	<th data-i18n="user_sessions.shutdowns" data-colname='user_sessions.shutdown'></th>
-		      	<th data-i18n="user_sessions.sshlogins" data-colname='user_sessions.sshlogin'></th>		      	
+		      	<th data-i18n="serial" data-colname='reportdata.serial_number'></th>	      	
 		      	<th data-i18n="user_sessions.logins" data-colname='user_sessions.login'></th>
 		      	<th data-i18n="user_sessions.logouts" data-colname='user_sessions.logout'></th>
+		      	<th data-i18n="user_sessions.shutdowns" data-colname='user_sessions.shutdown'></th>
+		      	<th data-i18n="user_sessions.reboots" data-colname='user_sessions.reboot'></th>
+		      	<th data-i18n="user_sessions.sshlogins" data-colname='user_sessions.sshlogin'></th>
 		      </tr>
 		    </thead>
 		    <tbody>
@@ -82,11 +82,11 @@ advanced listings only.
                 columns: [
                         { data: 'computer_name' },
                         { data: 'serial_number' },
-                        { data: 'reboot' },
-                        { data: 'shutdown' },
-                        { data: 'sshlogin' },
                         { data: 'login' },
-                        { data: 'logout' }
+                        { data: 'logout' },
+                        { data: 'shutdown' },
+                        { data: 'reboot' },
+                        { data: 'sshlogin' }
                     ],
                 dom: mr.dt.buttonDom,
                 buttons: mr.dt.buttons,
