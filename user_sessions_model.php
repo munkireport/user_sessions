@@ -120,5 +120,30 @@ class User_sessions_model extends \Model {
             $this->id = '';
             $this->save();
         }
+
+        if (!conf('user_sessions_save_remote_ssh')) {
+        // Clean up event if set not to save it
+            $this->deleteWhere('serial_number=? AND event=?', array($this->serial_number, 'sshlogin'));
+        }
+
+        if (!conf('user_sessions_save_login')) {
+        // Clean up event if set not to save it
+            $this->deleteWhere('serial_number=? AND event=?', array($this->serial_number, 'login'));
+        }
+
+        if (!conf('user_sessions_save_logout')) {
+        // Clean up event if set not to save it
+            $this->deleteWhere('serial_number=? AND event=?', array($this->serial_number, 'logout'));
+        }
+
+        if (!conf('user_sessions_save_reboot')) {
+        // Clean up event if set not to save it
+            $this->deleteWhere('serial_number=? AND event=?', array($this->serial_number, 'reboot'));
+        }
+
+        if (!conf('user_sessions_save_shutdown')) {
+        // Clean up event if set not to save it
+            $this->deleteWhere('serial_number=? AND event=?', array($this->serial_number, 'shutdown'));
+        }
     }
 }
