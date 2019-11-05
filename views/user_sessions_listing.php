@@ -1,4 +1,5 @@
 <?php $this->view('partials/head'); ?>
+
 <div class="container">
   <div class="row">
   	<div class="col-lg-12">
@@ -9,7 +10,7 @@
 		      <tr>
 		      	<th data-i18n="listing.computername" data-colname='machine.computer_name'></th>
 		      	<th data-i18n="serial" data-colname='reportdata.serial_number'></th>
-		      	<th data-i18n="user_sessions.event" data-colname='user_sessions.event'></th>
+		      	<th data-i18n="event" data-colname='user_sessions.event'></th>
 		      	<th data-i18n="username" data-colname='user_sessions.user'></th>
 		      	<th data-i18n="user_sessions.uid" data-colname='user_sessions.uid'></th>		      	
 		      	<th data-i18n="user_sessions.ipaddress" data-colname='user_sessions.remote_ssh'></th>
