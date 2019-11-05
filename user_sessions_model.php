@@ -52,16 +52,24 @@ class User_sessions_model extends \Model {
             'remote_ssh' => ''
         );
         
+        // List of users to ignore
+        $user_sessions_user_ignorelist = is_array(conf('user_sessions_user_ignorelist')) ? conf('user_sessions_user_ignorelist') : array();
+        $users_regex = '/^'.implode('|', $user_sessions_user_ignorelist).'$/';
+
         foreach (array_reverse($myList) as $event) {
 
             if (array_key_exists('user', $event)) {
-            // Check if user key exsits
+                // Check if user key exsits
                 if ($event['user'] == "_mbsetupuser") {
                 // Check if user is _mbsetupuser and skip that entry
                     continue;
                 }
+                
+                // Skip users
+                if (preg_match($users_regex, $event['user'])) {
+                    continue;
+                }
             }
-  
             if (!conf('user_sessions_save_remote_ssh') && array_key_exists('remote_ssh', $event)) {
             // Check if remote_ssh key exists and skip if set to not save
                 continue;

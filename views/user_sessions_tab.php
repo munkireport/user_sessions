@@ -2,7 +2,7 @@
 <table class="user_sessions table table-striped table-bordered">
 	<thead>
 		<tr>
-            <th data-i18n="event.event"></th>
+            <th data-i18n="user_sessions.event"></th>
             <th data-i18n="username"></th>
             <th data-i18n="user_sessions.uid"></th>
             <th data-i18n="user_sessions.ipaddress"></th>
