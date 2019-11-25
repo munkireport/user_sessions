@@ -1,3 +1,4 @@
+
 <h2 data-i18n="user_sessions.clienttab"></h2>
 
 <div id="user_sessions-msg" data-i18n="listing.loading" class="col-lg-12 text-center"></div>
@@ -101,6 +102,7 @@
         </tbody>
       </table>
 </div>
+
 
 <script>
     $(document).on('appReady', function(e, lang) {
