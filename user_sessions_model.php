@@ -64,22 +64,22 @@ class User_sessions_model extends \Model {
                 continue;
             }
 
-            if (!$this->config['user_sessions_save_login') && $event['event'] == "login") {
+            if (!$this->config['user_sessions_save_login'] && $event['event'] == "login") {
             // Check if event is login and skip if set to not save
                 continue;
             }
 
-            if (!$this->config['user_sessions_save_logout') && $event['event'] == "logout") {
+            if (!$this->config['user_sessions_save_logout'] && $event['event'] == "logout") {
             // Check if event is logout and skip if set to not save
                 continue;
             }
 
-            if (!$this->config['user_sessions_save_reboot') && $event['event'] == "reboot") {
+            if (!$this->config['user_sessions_save_reboot'] && $event['event'] == "reboot") {
             // Check if event is reboot and skip if set to not save
                 continue;
             }
 
-            if (!$this->config['user_sessions_save_shutdown') && $event['event'] == "shutdown") {
+            if (!$this->config['user_sessions_save_shutdown'] && $event['event'] == "shutdown") {
             // Check if event is shutdown and skip if set to not save
                 continue;
             }
