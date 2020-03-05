@@ -1,7 +1,8 @@
 User Sessions module
 ==============
 
-Gathers logins, logout, shut downs, and reboots on the client computer
+Gathers logins, logout, shut downs, and reboots on the client computer. The widget shows all events and the count listing shows them only for the past year.
+
 
 Configuration
 -------
