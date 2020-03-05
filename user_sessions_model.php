@@ -14,9 +14,6 @@ class User_sessions_model extends \Model {
 		$this->rs['uid'] = NULL;
 		$this->rs['remote_ssh'] = '';
 
-		// Add local config
-		configAppendFile(__DIR__ . '/config.php');
-
 		$this->serial_number = $serial;
 	}
 
@@ -36,7 +33,7 @@ class User_sessions_model extends \Model {
         }
 
         // Delete everything for serial user_sessions_keep_historical is not true
-        if (!conf('user_sessions_keep_historical')) {
+        if (!$this->config['user_sessions_keep_historical']) {
             $this->deleteWhere('serial_number=?', $this->serial_number);
         }
 
@@ -62,27 +59,27 @@ class User_sessions_model extends \Model {
                 }
             }
   
-            if (!conf('user_sessions_save_remote_ssh') && array_key_exists('remote_ssh', $event)) {
+            if (!$this->config['user_sessions_save_remote_ssh') && array_key_exists('remote_ssh', $event)) {
             // Check if remote_ssh key exists and skip if set to not save
                 continue;
             }
 
-            if (!conf('user_sessions_save_login') && $event['event'] == "login") {
+            if (!$this->config['user_sessions_save_login') && $event['event'] == "login") {
             // Check if event is login and skip if set to not save
                 continue;
             }
 
-            if (!conf('user_sessions_save_logout') && $event['event'] == "logout") {
+            if (!$this->config['user_sessions_save_logout') && $event['event'] == "logout") {
             // Check if event is logout and skip if set to not save
                 continue;
             }
 
-            if (!conf('user_sessions_save_reboot') && $event['event'] == "reboot") {
+            if (!$this->config['user_sessions_save_reboot') && $event['event'] == "reboot") {
             // Check if event is reboot and skip if set to not save
                 continue;
             }
 
-            if (!conf('user_sessions_save_shutdown') && $event['event'] == "shutdown") {
+            if (!$this->config['user_sessions_save_shutdown') && $event['event'] == "shutdown") {
             // Check if event is shutdown and skip if set to not save
                 continue;
             }
@@ -107,18 +104,43 @@ class User_sessions_model extends \Model {
             }
 
             // Delete previous matches if user_sessions_keep_historical is true
-            if (conf('user_sessions_keep_historical')) {
+            if ($this->config['user_sessions_keep_historical']) {
                 $this->deleteWhere('serial_number=? AND time=? AND event=?', array($this->serial_number, $this->time, $this->event));
             }
 
             // Only save unique users if set to true
-            if (conf('user_sessions_unique_users_only')) {
+            if ($this->config['user_sessions_unique_users_only']) {
                 $this->deleteWhere('serial_number=? AND user=?', array($this->serial_number, $this->user));
             }
 
             // Save user session event
             $this->id = '';
             $this->save();
+        }
+
+        if (!$this->config['user_sessions_save_remote_ssh']) {
+        // Clean up event if set not to save it
+            $this->deleteWhere('serial_number=? AND event=?', array($this->serial_number, 'sshlogin'));
+        }
+
+        if (!$this->config['user_sessions_save_login']) {
+        // Clean up event if set not to save it
+            $this->deleteWhere('serial_number=? AND event=?', array($this->serial_number, 'login'));
+        }
+
+        if (!$this->config['user_sessions_save_logout']) {
+        // Clean up event if set not to save it
+            $this->deleteWhere('serial_number=? AND event=?', array($this->serial_number, 'logout'));
+        }
+
+        if (!$this->config['user_sessions_save_reboot']) {
+        // Clean up event if set not to save it
+            $this->deleteWhere('serial_number=? AND event=?', array($this->serial_number, 'reboot'));
+        }
+
+        if (!$this->config['user_sessions_save_shutdown']) {
+        // Clean up event if set not to save it
+            $this->deleteWhere('serial_number=? AND event=?', array($this->serial_number, 'shutdown'));
         }
     }
 }
