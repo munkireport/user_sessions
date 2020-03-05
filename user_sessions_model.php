@@ -59,7 +59,7 @@ class User_sessions_model extends \Model {
                 }
             }
   
-            if (!$this->config['user_sessions_save_remote_ssh') && array_key_exists('remote_ssh', $event)) {
+            if (!$this->config['user_sessions_save_remote_ssh'] && array_key_exists('remote_ssh', $event)) {
             // Check if remote_ssh key exists and skip if set to not save
                 continue;
             }
