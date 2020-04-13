@@ -88,7 +88,7 @@
       <table class="table table-striped table-condensed table-bordered" id="user_sessions-history-table">
         <thead>
           <tr>
-            <th data-i18n="event" data-colname='user_sessions.event'></th>
+            <th data-i18n="user_sessions.event" data-colname='user_sessions.event'></th>
             <th data-i18n="username" data-colname='user_sessions.user'></th>
             <th data-i18n="user_sessions.uid" data-colname='user_sessions.uid'></th>		      	
             <th data-i18n="user_sessions.ipaddress" data-colname='user_sessions.remote_ssh'></th>
