@@ -114,14 +114,14 @@ class User_sessions_controller extends Module_controller
                         COUNT(CASE WHEN u.event = 'login' THEN 1 END) AS 'login'
                         FROM user_sessions u                        
                         LEFT JOIN machine m ON (u.serial_number = m.serial_number)
-                        LEFT JOIN reportdata r ON (u.serial_number = r.serial_number)
+                        LEFT JOIN reportdata ON (u.serial_number = reportdata.serial_number)
                         
                         WHERE u.time > ".$past_year."
                         ".get_machine_group_filter('AND')."
-                        GROUP BY serial_number";
+                        GROUP BY u.serial_number";
             
             // Fix the machine group filter
-            $sql = str_replace("AND reportdata.machine_group IN ","AND r.machine_group IN ",$sql);
+            // $sql = str_replace("AND reportdata.machine_group IN ","AND r.machine_group IN ",$sql);
             
             $obj->view('json', array('msg' => $queryobj->query($sql)));
 
