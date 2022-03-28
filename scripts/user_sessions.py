@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/local/munki/munki-python
 """
 Parse user sessions on macOS so we can determine what users logged in and
 when the event took place. We only obtain 'console' and 'ssh' sessions as
