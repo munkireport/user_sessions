@@ -1,4 +1,4 @@
-#!/usr/local/munkireport/munkireport-python2
+#!/usr/local/munkireport/munkireport-python3
 """
 Parse user sessions on macOS so we can determine what users logged in and
 when the event took place. We only obtain 'console' and 'ssh' sessions as
@@ -61,7 +61,7 @@ def get_uid(username):
                             stdin=subprocess.PIPE,
                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (output, unused_error) = proc.communicate()
-    output = output.strip()
+    output = output.decode().strip()
     return output
 
 def fast_last(session='gui_ssh'):
@@ -101,10 +101,10 @@ def fast_last(session='gui_ssh'):
         elif (e.ut_type == USER_PROCESS) or (e.ut_type == DEAD_PROCESS):
             if e.ut_type == USER_PROCESS: event_label = 'login'
             if e.ut_type == DEAD_PROCESS: event_label = 'logout'
-            if session is 'gui' and e.ut_line != "console":
+            if session == 'gui' and e.ut_line != "console":
                 continue
-            if (session is 'gui_ssh' and e.ut_host == "") and (
-                    session is 'gui_ssh' and e.ut_line != "console"):
+            if (session == 'gui_ssh' and e.ut_host == "") and (
+                    session == 'gui_ssh' and e.ut_line != "console"):
                 continue
             event = {'event': event_label,
                      'user': e.ut_user,
@@ -124,23 +124,18 @@ def fast_last(session='gui_ssh'):
 
 def main():
     """Main"""
-    # Create cache dir if it does not exist
-    cachedir = '%s/cache' % os.path.dirname(os.path.realpath(__file__))
-    if not os.path.exists(cachedir):
-        os.makedirs(cachedir)
-
-    # Skip manual check
-    if len(sys.argv) > 1:
-        if sys.argv[1] == 'manualcheck':
-            print 'Manual check: skipping'
-            exit(0)
 
     # Get results
     result = fast_last()
 
     # Write user session results to cache
+    cachedir = '%s/cache' % os.path.dirname(os.path.realpath(__file__))
     output_plist = os.path.join(cachedir, 'user_sessions.plist')
-    plistlib.writePlist(result, output_plist)
+    try:
+        plistlib.writePlist(result, output_plist)
+    except:
+        with open(output_plist, 'wb') as fp:
+            plistlib.dump(result, fp, fmt=plistlib.FMT_XML)
 
 
 if __name__ == "__main__":
