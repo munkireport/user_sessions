@@ -6,6 +6,7 @@ when the event took place. We only obtain 'console' and 'ssh' sessions as
 regular 'ttys' sessions are less useful as a whole.
 
 Author: Clayton Burlison - https://clburlison.com
+Updated for Python 3 by Tuxudo
 
 Code from: Michael Lynn -
     https://gist.github.com/pudquick/7fa89716fe2a8f6cdc084958671b7b58
@@ -62,7 +63,7 @@ def get_uid(username):
                             stdin=subprocess.PIPE,
                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (output, unused_error) = proc.communicate()
-    output = output.decode().strip()
+    output = output.decode("utf-8", errors="ignore").strip()
     return output
 
 def fast_last(session='gui_ssh'):
@@ -100,20 +101,22 @@ def fast_last(session='gui_ssh'):
             event = {'event': 'shutdown',
                      'time': e.ut_tv.tv_sec}
         elif (e.ut_type == USER_PROCESS) or (e.ut_type == DEAD_PROCESS):
+
+
             if e.ut_type == USER_PROCESS: event_label = 'login'
             if e.ut_type == DEAD_PROCESS: event_label = 'logout'
-            if session == 'gui' and e.ut_line != "console":
+            if session == 'gui' and e.ut_line.decode("utf-8", errors="ignore") != "console":
                 continue
-            if (session == 'gui_ssh' and e.ut_host == "") and (
-                    session == 'gui_ssh' and e.ut_line != "console"):
+            if (session == 'gui_ssh' and e.ut_host.decode("utf-8", errors="ignore") == "") and (
+                    session == 'gui_ssh' and e.ut_line.decode("utf-8", errors="ignore") != "console"):
                 continue
             event = {'event': event_label,
-                     'user': e.ut_user,
+                     'user': e.ut_user.decode("utf-8", errors="ignore"),
                      'time': e.ut_tv.tv_sec}
-                     
-            if e.ut_user != "":
-            	event['uid'] = get_uid(e.ut_user)
-            if e.ut_host != "":
+
+            if e.ut_user.decode("utf-8", errors="ignore") != "":
+                event['uid'] = get_uid(e.ut_user)
+            if e.ut_host.decode("utf-8", errors="ignore") != "":
                 event['remote_ssh'] = e.ut_host
 
         if event != {}:
