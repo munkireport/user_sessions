@@ -1,9 +1,7 @@
-
 <h2 data-i18n="user_sessions.clienttab"></h2>
-
 <div id="user_sessions-msg" data-i18n="listing.loading" class="col-lg-12 text-center"></div>
 
-<div id="user_sessions-count-view" class="row hide">
+<div id="user_sessions-count-view" class="row pt-4 hide">
     <div class="col-md-2">
         <h4 data-i18n="user_sessions.event_count_all"></h4>
         <table class="table table-striped" style="max-width: 200px;">
@@ -29,7 +27,7 @@
             </tr>
         </table>
     </div>
-    
+
     <div class="col-md-2">
         <h4 data-i18n="user_sessions.events_last_month"></h4>
         <table class="table table-striped" style="max-width: 200px;">
@@ -55,7 +53,7 @@
             </tr>
         </table>
     </div>
-        
+
     <div class="col-md-2">
         <h4 data-i18n="user_sessions.events_last_year"></h4>
         <table class="table table-striped" style="max-width: 200px;">
@@ -83,7 +81,7 @@
     </div>
 </div>
 
-<div id="user_sessions-history-table-view" class="row hide" style="padding-left: 15px; padding-right: 15px;">
+<div id="user_sessions-history-table-view" class="row pt-4 hide" style="padding-left: 15px; padding-right: 15px;">
     <h3><span data-i18n="user_sessions.event_history"></span></h3>
       <table class="table table-striped table-condensed table-bordered" id="user_sessions-history-table">
         <thead>
@@ -138,7 +136,7 @@
                 
             }
         });
-        
+
         // Get event history data
         $.getJSON( appUrl + '/module/user_sessions/get_data/' + serialNumber, function( data ) {
             if( ! data ){
