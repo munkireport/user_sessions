@@ -1,6 +1,6 @@
 <div class="col-lg-4 col-md-6">
     <div class="card" id="user_sessions_event_count-widget">
-        <div id="user_sessions_event_count-widget" class="card-heading" data-container="body">
+        <div id="user_sessions_event_count-widget" class="card-header" data-container="body">
             <i class="fa fa-industry"></i> 
             <span data-i18n="user_sessions.event_count"></span>
             <a href="/show/listing/user_sessions/user_sessions" class="pull-right"><i class="fa fa-list"></i></a>
